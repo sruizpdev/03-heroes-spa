@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class HeroesService {
-  private heroes: Heroe[] = [
+  private heroes: Hero[] = [
     {
       nombre: "Aquaman",
       bio:
@@ -74,8 +74,17 @@ export class HeroesService {
   getHeroe(idx: number) {
     return this.heroes[idx];
   }
+
+  searchHeroes(term: string): Hero[] {
+    let heroesArr: Hero[] = [];
+    term = term.toLowerCase();
+    this.heroes.map((hero) => {
+      if (hero.nombre.toLowerCase().indexOf(term) >= 0) heroesArr.push(hero);
+    });
+    return heroesArr;
+  }
 }
-export interface Heroe {
+export interface Hero {
   nombre: string;
   bio: string;
   img: string;
